@@ -27,19 +27,30 @@ export default {
       members: [],
     };
   },
-  created() {
-    console.log(this.id);
-    const teamId = this.$route.params.id;
-    const selectedTeam = this.teams.find((team) => team.id === teamId);
-    const members = selectedTeam.members;
-    const selectedMembers = [];
 
-    for (const member of members) {
-      const selectedUser = this.users.find((user) => user.id === member);
-      selectedMembers.push(selectedUser);
-    }
-    this.members = selectedMembers;
-    this.name = selectedTeam.name;
+  methods: {
+    loadTeamHandler() {
+      const teamId = this.$route.params.id;
+      const selectedTeam = this.teams.find((team) => team.id === teamId);
+      const members = selectedTeam.members;
+      const selectedMembers = [];
+
+      for (const member of members) {
+        const selectedUser = this.users.find((user) => user.id === member);
+        selectedMembers.push(selectedUser);
+      }
+      this.members = selectedMembers;
+      this.name = selectedTeam.name;
+    },
+  },
+  created() {
+    this.loadTeamHandler();
+  },
+
+  watch: {
+    id() {
+      return this.loadTeamHandler();
+    },
   },
 };
 </script>
