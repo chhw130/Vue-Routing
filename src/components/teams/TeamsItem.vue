@@ -13,7 +13,7 @@ export default {
   props: ['id', 'name', 'memberCount'],
   computed: {
     teamsRoute() {
-      return '/teams/' + this.id;
+      return { name: 'teamMembers', params: { id: this.id } };
     },
   },
 
